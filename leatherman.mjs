@@ -1,10 +1,17 @@
 import fetch from "node-fetch";
 
-for (let i = 0; i < 700; i++) {
+const start = 0;
+const end = start + 700;
+
+for (let i = start; i < end; i++) {
   const url = `https://www.leatherman.com/${i}.html`;
   const res = await fetch(url, { redirect: "manual" });
   if (res.status === 301) {
-    console.log(i, res.headers.get("location"));
+    let location = res.headers.get("location");
+    if (location.startsWith("/")) {
+      location = "https://www.leatherman.com" + location;
+    }
+    console.log(i, location);
   } else {
     console.log(i);
   }
