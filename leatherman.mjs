@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 
-const start = 695;
-const end = start + 30;
+const start = 0;
+const end = start + 700;
 
 for (let i = start; i < end; i++) {
   const url = `https://www.leatherman.com/${i}.html`;
