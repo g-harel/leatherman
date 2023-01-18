@@ -359,10 +359,10 @@
 358 https://www.leatherman.com/retired-products.html
 359 https://www.leatherman.com/30th-anniversary-micra-359.html
 360 https://www.leatherman.com/30th-anniv-super-tool-300-360.html
-361 https://www.leatherman.com/juice-xe6-361.html
+361 https://www.leatherman.com/retired-products.html
 362 https://www.leatherman.com/retired-products.html
 363 https://www.leatherman.com/retired-products.html
-364 https://www.leatherman.com/juice-cs4-364.html
+364 https://www.leatherman.com/retired-products.html
 365
 366
 367
@@ -692,9 +692,12 @@
 691 https://www.leatherman.com/leatherman-tool-maintenance-kit-691.html
 692 https://www.leatherman.com/leatherman-blade-sharpener-692.html
 693
-694
+694 https://www.leatherman.com/harvest-sheath-694.html
 695 https://www.leatherman.com/original-multi-tool-zip-up-hoodie-695.html
 696 https://www.leatherman.com/leatherman-logo-knit-cuffed-beanie-696.html
 697
-698 https://www.leatherman.com/europe75-698.html
-699
+698
+699 https://www.leatherman.com/40th-anniversary-tool-699.html
+700 https://www.leatherman.com/40th-anniversary-sheath-700.html
+701 https://www.leatherman.com/leatherman-adapt-kit-701.html
+702 https://www.leatherman.com/arc-702.html
