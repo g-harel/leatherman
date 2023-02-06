@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "node-fetch": "^3.2.3"
-  },
-  "scripts": {
-    "fmt": "npx prettier --list-different --write **/*.{mjs,json}"
-  }
-}
