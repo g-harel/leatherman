@@ -1,5 +1,6 @@
-import {join} from "https://deno.land/std@0.176.0/path/mod.ts";
-import {printf} from "https://deno.land/std@0.176.0/fmt/printf.ts";
+import { join } from "https://deno.land/std@0.176.0/path/mod.ts";
+import { copy } from "https://deno.land/std@0.104.0/io/util.ts";
+import { printf } from "https://deno.land/std@0.176.0/fmt/printf.ts";
 
 const outDir = "archive";
 
@@ -28,8 +29,8 @@ const writeToday = async (): Promise<string> => {
   const date = new Date().toISOString().substring(0, 10);
   const path = join(".", outDir, date);
   await Deno.writeTextFile(path, await fetchIDs(685, 20));
-  return date;
-}
+  return path;
+};
 
 // Gets the path of the most recent archive.
 const getLatestPath = async (): Promise<string> => {
@@ -40,8 +41,20 @@ const getLatestPath = async (): Promise<string> => {
     }
   }
   return join(".", outDir, latest);
-}
+};
 
-await writeToday();
-console.log(await getLatestPath());
+//
+const diff = async (pathA: string, pathB: string): Promise<string> => {
+  const cmd = ["diff", "-u", pathA, pathB];
+  const process = Deno.run({ cmd, stdout: "piped", stderr: "piped" });
 
+  const output = new TextDecoder().decode(await process.output());
+  const status = await process.status();
+  
+  if (status.success) return output;
+
+  copy(process.stderr, Deno.stderr);
+  throw "diff failed: ";
+};
+
+console.log(await diff(await getLatestPath(), await writeToday()));
