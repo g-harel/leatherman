@@ -1,5 +1,4 @@
 import { join } from "https://deno.land/std@0.176.0/path/mod.ts";
-import { copy } from "https://deno.land/std@0.104.0/io/util.ts";
 import { printf } from "https://deno.land/std@0.176.0/fmt/printf.ts";
 
 const outDir = "archive";
@@ -21,6 +20,7 @@ const fetchIDs = async (start = 0, count = 1) => {
     }
     printf(".");
   }
+  console.log("Done");
   return out;
 };
 
@@ -43,18 +43,20 @@ const getLatestPath = async (): Promise<string> => {
   return join(".", outDir, latest);
 };
 
-//
+// Diffs two files.
 const diff = async (pathA: string, pathB: string): Promise<string> => {
-  const cmd = ["diff", "-u", pathA, pathB];
-  const process = Deno.run({ cmd, stdout: "piped", stderr: "piped" });
+  const process = Deno.run({
+    cmd: ["diff", "-u", pathA, pathB],
+    stdout: "piped",
+    stderr: "piped",
+  });
 
-  const output = new TextDecoder().decode(await process.output());
   const status = await process.status();
-  
-  if (status.success) return output;
+  const output = new TextDecoder().decode(await process.output());
+  if (status.code <= 1) return output;
 
-  copy(process.stderr, Deno.stderr);
-  throw "diff failed: ";
+  const errOutput = new TextDecoder().decode(await process.stderrOutput());
+  throw "diff failed: " + errOutput;
 };
 
 console.log(await diff(await getLatestPath(), await writeToday()));
