@@ -28,7 +28,7 @@ const fetchIDs = async (start = 0, count = 1) => {
 const writeToday = async (): Promise<string> => {
   const date = new Date().toISOString().substring(0, 10);
   const path = join(".", outDir, date);
-  await Deno.writeTextFile(path, await fetchIDs(685, 20));
+  await Deno.writeTextFile(path, await fetchIDs(0, 710));
   return path;
 };
 
@@ -36,7 +36,10 @@ const writeToday = async (): Promise<string> => {
 const getLatestPath = async (): Promise<string> => {
   let latest = "1983-07-01";
   for await (const path of Deno.readDir(outDir)) {
-    if (path.isFile && path.name.localeCompare(latest) > 0) {
+    if (
+      path.isFile && !path.name.endsWith(".diff") &&
+      path.name.localeCompare(latest) > 0
+    ) {
       latest = path.name;
     }
   }
@@ -59,4 +62,24 @@ const diff = async (pathA: string, pathB: string): Promise<string> => {
   throw "diff failed: " + errOutput;
 };
 
-console.log(await diff(await getLatestPath(), await writeToday()));
+const latestPath = await getLatestPath();
+const noPrevious = latestPath < "2000-01-01";
+
+const todayPath = await writeToday();
+if (todayPath === latestPath) {
+  console.log("Already ran today.");
+  Deno.exit(1);
+}
+
+if (noPrevious) {
+  console.log("Nothing to diff.");
+  Deno.exit();
+}
+
+const diffResult = await diff(latestPath, todayPath);
+if (diffResult.trim() === "") {
+  console.log("No changes.");
+  Deno.exit();
+}
+
+await Deno.writeTextFile(todayPath + ".diff", diffResult);
