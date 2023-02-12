@@ -50,11 +50,17 @@ const diff = async (pathA: string, pathB: string): Promise<string> => {
 
 // Retroactively add diffs for all archive files.
 const writeDiffs = async () => {
-  let prev: null | string = null;
+  // Collect paths and sort by date.
+  const paths = [];
   for await (const path of Deno.readDir(outDir)) {
     if (!path.isFile || path.name.endsWith(".diff")) continue;
-    const currentPath = join(outDir, path.name);
+    paths.push(join(outDir, path.name));
+  }
+  paths.sort();
 
+  // Diff archive files.
+  let prev: null | string = null;
+  for (const currentPath of paths) {
     if (prev === null) {
       prev = currentPath;
       continue;
