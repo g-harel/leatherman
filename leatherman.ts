@@ -28,22 +28,8 @@ const fetchIDs = async (start = 0, count = 1) => {
 const writeToday = async (): Promise<string> => {
   const date = new Date().toISOString().substring(0, 10);
   const path = join(".", outDir, date);
-  await Deno.writeTextFile(path, await fetchIDs(0, 710));
+  await Deno.writeTextFile(path, await fetchIDs(0, 710) + "\n");
   return path;
-};
-
-// Gets the path of the most recent archive.
-const getLatestPath = async (): Promise<string> => {
-  let latest = "1983-07-01";
-  for await (const path of Deno.readDir(outDir)) {
-    if (
-      path.isFile && !path.name.endsWith(".diff") &&
-      path.name.localeCompare(latest) > 0
-    ) {
-      latest = path.name;
-    }
-  }
-  return join(".", outDir, latest);
 };
 
 // Diffs two files.
@@ -62,24 +48,23 @@ const diff = async (pathA: string, pathB: string): Promise<string> => {
   throw "diff failed: " + errOutput;
 };
 
-const latestPath = await getLatestPath();
-const noPrevious = latestPath < "2000-01-01";
+// Retroactively add diffs for all archive files.
+const writeDiffs = async () => {
+  let prev: null | string = null;
+  for await (const path of Deno.readDir(outDir)) {
+    if (!path.isFile || path.name.endsWith(".diff")) continue;
+    const currentPath = join(outDir, path.name);
 
-const todayPath = await writeToday();
-if (todayPath === latestPath) {
-  console.log("Already ran today.");
-  Deno.exit(1);
-}
+    if (prev === null) {
+      prev = currentPath;
+      continue;
+    }
 
-if (noPrevious) {
-  console.log("Nothing to diff.");
-  Deno.exit();
-}
+    const result = await diff(prev, currentPath);
+    await Deno.writeTextFile(currentPath + ".diff", result);
+    prev = currentPath;
+  }
+};
 
-const diffResult = await diff(latestPath, todayPath);
-if (diffResult.trim() === "") {
-  console.log("No changes.");
-  Deno.exit();
-}
-
-await Deno.writeTextFile(todayPath + ".diff", diffResult);
+await writeToday();
+await writeDiffs();
