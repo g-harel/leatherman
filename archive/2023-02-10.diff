@@ -1,25 +1,8 @@
---- archive/2023-02-03	2023-02-11 23:54:58
-+++ archive/2023-02-10	2023-02-11 23:55:00
-@@ -691,13 +691,20 @@
- 690 https://www.leatherman.com/batch-003-parts-690.html
- 691 https://www.leatherman.com/leatherman-tool-maintenance-kit-691.html
- 692 https://www.leatherman.com/leatherman-blade-sharpener-692.html
--693
-+693 https://www.leatherman.com/batch-006-harvest-693.html
- 694 https://www.leatherman.com/harvest-sheath-694.html
- 695 https://www.leatherman.com/original-multi-tool-zip-up-hoodie-695.html
- 696 https://www.leatherman.com/leatherman-logo-knit-cuffed-beanie-696.html
--697
-+697 https://www.leatherman.com/batch-004-europe75-697.html
- 698
- 699 https://www.leatherman.com/40th-anniversary-tool-699.html
- 700 https://www.leatherman.com/40th-anniversary-sheath-700.html
- 701 https://www.leatherman.com/leatherman-adapt-kit-701.html
- 702 https://www.leatherman.com/arc-702.html
-+703
-+704
-+705
-+706
-+707
-+708
-+709
+--- archive/2023-02-03
++++ archive/2023-02-10
+@@
+-0693
++0693 https://www.leatherman.com/batch-006-harvest-693.html
+@@
+-0697
++0697 https://www.leatherman.com/batch-004-europe75-697.html

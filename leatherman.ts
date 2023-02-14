@@ -2,11 +2,12 @@ import { join } from "https://deno.land/std@0.176.0/path/mod.ts";
 import { printf } from "https://deno.land/std@0.176.0/fmt/printf.ts";
 
 const outDir = "archive";
+const maxID = 710;
 
 // Iterates through all IDs and fetches final URL.
-const fetchIDs = async (start = 0, count = 1) => {
-  let out = "";
-  for (let i = start; i < start + count; i++) {
+const fetchIDs = async (): Promise<Record<number, string>> => {
+  const out: Record<number, string> = {};
+  for (let i = 1; i < maxID; i++) {
     const url = `https://www.leatherman.com/${i}.html`;
     const res = await fetch(url, { redirect: "manual" });
     if (res.status === 301) {
@@ -14,11 +15,12 @@ const fetchIDs = async (start = 0, count = 1) => {
       if (location && location.startsWith("/")) {
         location = "https://www.leatherman.com" + location;
       }
-      out += `${i} ${location}\n`;
+      out[i] = location || "";
     } else {
-      out += `${i}\n`;
+      out[i] = "";
     }
     printf(".");
+    if (i % 100 === 0) printf(String(i));
   }
   console.log("Done");
   return out;
@@ -26,16 +28,30 @@ const fetchIDs = async (start = 0, count = 1) => {
 
 // Writes today's archive to a file and returns the path.
 const writeToday = async (): Promise<string> => {
+  // Fetch results and clean up data.
+  const result = await fetchIDs();
+  for (let i = maxID; i > 0; i--) {
+    if (result[i] !== undefined && result[i] !== "") break;
+    delete result[i];
+  }
+
+  // Print results.
+  const stringResult = Object
+    .entries(result)
+    .map(([id, location]) => `${id.padStart(4, "0")} ${location}`.trim())
+    .join("\n");
+
+  // Write results to file.
   const date = new Date().toISOString().substring(0, 10);
   const path = join(".", outDir, date);
-  await Deno.writeTextFile(path, await fetchIDs(0, 710) + "\n");
+  await Deno.writeTextFile(path, stringResult + "\n");
   return path;
 };
 
-// Diffs two files.
+// Diffs two files and returns raw output.
 const diff = async (pathA: string, pathB: string): Promise<string> => {
   const process = Deno.run({
-    cmd: ["diff", "-u", pathA, pathB],
+    cmd: ["diff",  "-U", "0", pathA, pathB],
     stdout: "piped",
     stderr: "piped",
   });
@@ -66,7 +82,10 @@ const writeDiffs = async () => {
       continue;
     }
 
-    const result = await diff(prev, currentPath);
+    let result = await diff(prev, currentPath);
+    result = result.replaceAll(/@@.*@@/g, "@@");
+    result = result.replaceAll(/	\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/g, "");
+
     await Deno.writeTextFile(currentPath + ".diff", result);
     prev = currentPath;
   }

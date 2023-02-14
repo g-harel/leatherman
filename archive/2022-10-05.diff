@@ -1,62 +1,21 @@
---- archive/2022-07-20	2023-02-12 11:45:20
-+++ archive/2022-10-05	2023-02-11 23:54:46
-@@ -544,7 +544,7 @@
- 543
- 544
- 545
--546 https://www.leatherman.com/black-silver-wave-546.html
-+546 https://www.leatherman.com/wave-10.html
- 547
- 548 https://www.leatherman.com/nylon-sheath-548.html
- 549 https://www.leatherman.com/nylon-sheath-w-pockets-549.html
-@@ -566,9 +566,9 @@
- 565
- 566 https://www.leatherman.com/heritage-sheath-566.html
- 567 https://www.leatherman.com/surge-3.html
--568 https://www.leatherman.com/black-silver-signal-568.html
--569 https://www.leatherman.com/black-silver-skeletool-569.html
--570 https://www.leatherman.com/black-silver-skeletool-kbx-570.html
-+568 https://www.leatherman.com/signal-439.html
-+569 https://www.leatherman.com/skeletool-18.html
-+570 https://www.leatherman.com/skeletool-kbx-501.html
- 571 https://www.leatherman.com/retired-products.html
- 572 https://www.leatherman.com/skeletool
- 573 https://www.leatherman.com/lanyard-ring-pocket-clip-573.html
-@@ -591,7 +591,7 @@
- 590 https://www.leatherman.com/free-k4-590.html
- 591 https://www.leatherman.com/free-k4x-591.html
- 592 https://www.leatherman.com/free-k5-not-used-592.html
--593 https://www.leatherman.com/skeletool-topo-593.html
-+593 https://www.leatherman.com/skeletool-18.html
- 594 https://www.leatherman.com/skeletool-18.html
- 595 https://www.leatherman.com/charge-forest-camo-595.html
- 596 https://www.leatherman.com/charge-552.html
-@@ -691,10 +691,25 @@
- 690 https://www.leatherman.com/batch-003-parts-690.html
- 691 https://www.leatherman.com/leatherman-tool-maintenance-kit-691.html
- 692 https://www.leatherman.com/leatherman-blade-sharpener-692.html
--693 https://www.leatherman.com/harvest-693.html
-+693 https://www.leatherman.com/batch-004-harvest-693.html
- 694 https://www.leatherman.com/harvest-sheath-694.html
- 695 https://www.leatherman.com/original-multi-tool-zip-up-hoodie-695.html
- 696 https://www.leatherman.com/leatherman-logo-knit-cuffed-beanie-696.html
--697
--698
-+697 https://www.leatherman.com/europe-75-697.html
-+698 https://www.leatherman.com/europe75-698.html
- 699
-+700
-+701
-+702
-+703
-+704
-+705
-+706
-+707
-+708
-+709
-+710
-+711
-+712
-+713
-+714
+--- archive/2022-07-20
++++ archive/2022-10-05
+@@
+-0546 https://www.leatherman.com/black-silver-wave-546.html
++0546 https://www.leatherman.com/wave-10.html
+@@
+-0568 https://www.leatherman.com/black-silver-signal-568.html
+-0569 https://www.leatherman.com/black-silver-skeletool-569.html
+-0570 https://www.leatherman.com/black-silver-skeletool-kbx-570.html
++0568 https://www.leatherman.com/signal-439.html
++0569 https://www.leatherman.com/skeletool-18.html
++0570 https://www.leatherman.com/skeletool-kbx-501.html
+@@
+-0593 https://www.leatherman.com/skeletool-topo-593.html
++0593 https://www.leatherman.com/skeletool-18.html
+@@
+-0693 https://www.leatherman.com/harvest-693.html
++0693 https://www.leatherman.com/batch-004-harvest-693.html
+@@
++0697 https://www.leatherman.com/europe-75-697.html
++0698 https://www.leatherman.com/europe75-698.html
