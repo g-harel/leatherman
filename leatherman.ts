@@ -7,7 +7,7 @@ const maxID = 710;
 // Iterates through all IDs and fetches final URL.
 const fetchIDs = async (): Promise<Record<number, string>> => {
   const out: Record<number, string> = {};
-  for (let i = 1; i < maxID; i++) {
+  for (let i = maxID; i > 1; i--) {
     const url = `https://www.leatherman.com/${i}.html`;
     const res = await fetch(url, { redirect: "manual" });
     if (res.status === 301) {
@@ -16,10 +16,11 @@ const fetchIDs = async (): Promise<Record<number, string>> => {
         location = "https://www.leatherman.com" + location;
       }
       out[i] = location || "";
+      printf("+");
     } else {
       out[i] = "";
+      printf(".");
     }
-    printf(".");
     if (i % 100 === 0) printf(String(i));
   }
   console.log("Done");
