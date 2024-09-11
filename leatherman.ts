@@ -2,7 +2,7 @@ import { join } from "https://deno.land/std@0.176.0/path/mod.ts";
 import { printf } from "https://deno.land/std@0.176.0/fmt/printf.ts";
 
 const outDir = "archive";
-const maxID = 710;
+const maxID = 750;
 
 // Iterates through all IDs and fetches final URL.
 const fetchIDs = async (): Promise<Record<number, string>> => {
@@ -14,6 +14,9 @@ const fetchIDs = async (): Promise<Record<number, string>> => {
       let location = res.headers.get("location");
       if (location && location.startsWith("/")) {
         location = "https://www.leatherman.com" + location;
+      }
+      if (location && !location.startsWith("https://")) {
+        location = "https://www.leatherman.com/" + location;
       }
       out[i] = location || "";
       printf("+");
