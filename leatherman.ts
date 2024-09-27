@@ -2,7 +2,7 @@ import { join } from "https://deno.land/std@0.176.0/path/mod.ts";
 import { printf } from "https://deno.land/std@0.176.0/fmt/printf.ts";
 
 const outDir = "archive";
-const maxID = 750;
+const maxID = 800;
 
 // Iterates through all IDs and fetches final URL.
 const fetchIDs = async (): Promise<Record<number, string>> => {
